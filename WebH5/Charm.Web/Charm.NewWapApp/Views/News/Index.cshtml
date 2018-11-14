@@ -1,0 +1,112 @@
+﻿@{
+    ViewBag.Title = "News";
+}
+
+<!-- Swiper -->
+<div class="meiti meiti-banner newsList wow fadeInDown animated" style="visibility: visible; animation-name: fadeInDown;">
+	<div class="container">
+		<div class="txt">
+			<h1>魅力</h1>
+			<p>让肥胖不再成为困扰，重塑魅力从这里开启！</p>
+		</div>
+	</div>
+</div>
+<div class="posts">
+
+   @if (Model != null && Model.NewsList != null && Model.NewsList.Count>0)
+      {
+
+          foreach (var item in Model.NewsList)
+             { 
+                         
+        <div class="post">		
+		<a href="@Url.Content("../News/NewsDetails?newId="+ @item.NewsId)"><h1 class="post-title">@item.NewsName</h1></a>
+		<a href="@Url.Content("../News/NewsDetails?newId="+ @item.NewsId)"><div class="image-single"><img src="@item.TitleUrl"></div></a>
+       
+        </div>
+                       
+              }
+                     
+        }
+	
+	<div style="clear:both;"></div>
+</div>
+<div id="loadgif" style="display:none">
+　　<img  alt="加载中..." src="/img/07.gif" />
+</div>
+
+@section CustomJS{
+        <script type="text/javascript">
+            var n = 1; //设置当前页数，全局变量 
+            var TotalPages = '@Model.TotalPages';
+            $(document).ready(function () {
+
+                $(window).scroll(function () {
+
+                    if ($(document).scrollTop() <= 0) {
+                        //alert("滚动条已经到达顶部为0");
+                    }
+                    
+                    if ($(document).scrollTop() >= $(document).height() - $(window).height()) {
+                        n++;
+                        
+                        //alert("滚动条已经到达底部为" + $(document).scrollTop());
+
+                        if (n <= TotalPages) {
+
+                            $.ajax({
+                                type: "post",
+                                url: "/News/GetNewsByPage/",
+                                data: { CurrentPage: n },
+                                dataType: "json",
+                                success: function (data) {
+
+
+                                    $("#loadgif").hide();
+                                    var data = JSON.parse(JSON.stringify(data))
+                                    insertDiv(data);
+
+                                },
+                                beforeSend: function () {
+
+                                    $("#loadgif").show();
+                                },
+                                error: function () {
+                                    $(".loaddiv").hide();
+                                }
+                            });
+                        
+                        }
+                           
+                        
+                     
+
+                        function insertDiv(json) {
+
+                            var $mainDiv = $(".posts");
+                            var NewsList = json.NewsList;
+                            var html = '';
+                            for (var i = 0; i < NewsList.length; i++) {
+                                html += '<div class="post">';
+                                html += '    <a href="../News/NewsDetails?newId==' + NewsList[i].NewsId + '"><h1 class="post-title">' + NewsList[i].NewsName + '</h1></a>';
+                                html += '    <a href="../News/NewsDetails?newId==' + NewsList[i].NewsId + '"><div class="image-single"><img src="' + NewsList[i].TitleUrl + '"></div></a>';
+                                html += '</div>';
+                                 
+                                
+                            }
+                            html += ' <div id="div2" style="clear:both;"></div>';
+                            $mainDiv.append(html);
+                        }
+
+
+                       
+                    }
+                });
+            });
+
+
+
+        </script>
+                       
+                       
+               }

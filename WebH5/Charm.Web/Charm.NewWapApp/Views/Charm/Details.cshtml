@@ -1,0 +1,305 @@
+﻿@using Charm.Common
+@using Charm.Common.Models
+@using Charm.Entity.API;
+@{
+    ViewBag.Title = "Charm";
+    var user = LoginHelper.Instance.GetLoginUser<UserInfo>();
+    
+}
+
+@model Charm.Entity.API.Goods.GoodsInfoResponse
+<!-- Swiper -->
+
+ @if (user != null) {
+    <input value="@user.Account"type="hidden" id="userobj"/>
+ }else{
+    <input value=""type="hidden" id="userobj"/>
+ }
+<div id="postdetail" class="posts">
+    <div class="post detail"> 
+        @if (Model != null && Model.RspCode == ReponseCode.Success.GetHashCode() && Model.Goods != null && Model.Goods.Count > 0)
+        {
+            <header class="profile">
+                @*<img src="~/img/1.jpg" class="pull-left">*@
+               @* <div class="name"><span>冉小冉</span><span class="create-time pull-right">@Model.RspTime</span></div>*@
+            </header>
+            <h1 class="post-title">@Model.Goods.First().GoodsName</h1>
+            if (Model.Goods.First().Images != null && Model.Goods.First().Images.Count > 0)
+            {
+                foreach (var item in Model.Goods.First().Images)
+                {
+                    //todo 等传真实的图片地址
+
+                    <div class="image-single">
+                        <img src="@item.GoodsOriginalImg">
+                    </div><br />
+
+
+                }
+            }
+
+
+
+            <div class="cheer-wrapper show">
+                <div class="cheer">
+                    <span class="pull-left cheer-txt">
+                    <a href="#" id="thumb_up"><img src="~/img/cheer.png"></a>
+                    </span>
+                @*@if (Model != null && Model.ArticleLikeDetails != null && Model.ArticleLikeDetails.Count > 0)
+                {
+
+                    foreach (var item in Model.ArticleLikeDetails)
+                    {
+                        if (user != null && item.MemberId == user.Account && item.IsDelete == 1)
+                        {
+                            <input type="hidden" id="isdelete" value="@item.MemberId"/> 
+                    
+                            <img class="cursor-pointer" src="@item.HeadImageUrl">
+                        }
+                       
+                            
+                       
+                       
+                   
+                    }
+
+                }*@
+                  @*  <img class="cursor-pointer" src="~/img/1.jpg">
+                    <img class="cursor-pointer" src="~/img/2.jpg">
+                    <img class="cursor-pointer" src="~/img/3.jpg">
+                    <img class="cursor-pointer" src="~/img/4.jpg">
+                    <img class="cursor-pointer" src="~/img/huangxiaming.jpg">
+                    <img class="cursor-pointer" src="~/img/1.jpg">
+                    <img class="cursor-pointer" src="~/img/2.jpg">
+                    <img class="cursor-pointer" src="~/img/3.jpg">
+                    <img class="cursor-pointer" src="~/img/4.jpg">*@
+                </div>
+            </div>
+
+        }
+        <div style="clear: both;"></div>
+
+        <div id="comments">
+            
+
+            @*@if (Model != null && Model.MemberComment != null && Model.MemberComment.Items != null && Model.MemberComment.Items.Count > 0)
+            {
+              <h5 class="comment-title">共 @Model.CommentCounts 条评论</h5>
+               <input type="hidden" id="totalPage" value="@Model.MemberComment.TotalPages" />
+                foreach (var item in Model.MemberComment.Items)
+                { 
+                    <div class="comment-item">
+                        <div class="comment-profile clearfix">
+                           
+                            <img class="cursor-pointer pull-left" src="@item.HeadImageUrl">
+                            <div class="name">
+                                <span>@item.NickName</span>
+                                <span class="time pull-right">@item.UpdateOn</span>
+                            </div>
+                            <div class="comment-desc">@item.CommentContent</div>
+                        </div>
+                    </div>
+    
+                }
+            }
+            else
+            {
+            
+             <h5 class="comment-title">共0 条评论</h5>
+             <input type="hidden" id="totalPage"value="0" />
+                
+            }*@
+
+    </div>
+        @*<div style="clear: both;"></div>
+        <textarea id="txtComment" maxlength="100" placeholder = "发表点什么...." class="form-control" rows="4"></textarea>*@
+        
+
+        <div id="loadgif" style="display:none">
+　　          <img  alt="加载中..." src="/img/07.gif" />
+        </div>
+        @*<button class="btn btn-default" id="btnSubmit">提交评论</button>*@
+    </div>
+</div>
+
+            
+
+
+@section CustomJS
+{
+    <script type="text/javascript">
+
+        @*$("#txtComment").change(function () {
+            $('#btnSubmit').removeAttr('disabled style');
+        });
+        var articleId = '@Model.Goods.First().GoodsId';
+        var memberId = '';
+        
+        $('#btnSubmit').click(function () {
+            if ($('#txtComment').val() == "") {
+                $('#btnSubmit').attr('disabled', true);
+                return false;
+            }
+            if ($('#userobj').val() != "") {
+                memberId = $('#userobj').val();
+                $.post("/Charm/SaveComment", { txtComment: $('#txtComment').val(), txtUser: memberId, articleId: articleId }, function (result) {
+                   
+                    location.href = "@Url.Content("../Charm/Details?articleId=" + @Model.Goods.First().GoodsId)"
+                });
+            } else {
+                location.href = "@Url.Content("../Home/Login?returnUrl=/Charm/Details?articleId=" + @Model.Goods.First().GoodsId)"
+            }
+
+        });
+
+        $('#thumb_up').click(function () {
+            if ($('#userobj').val() != "") {
+                memberId = $('#userobj').val();
+               
+                if ($('#isdelete').val() == memberId) {
+
+                    $.post("/Charm/DelThumbUp", { txtUser: memberId, articleId: articleId }, function (result) {
+                        location.href = "@Url.Content("../Charm/Details?articleId=" + @Model.Goods.First().GoodsId)"
+
+                    });
+
+                } else {
+                    $.post("/Charm/ThumbUp", { txtUser: memberId, articleId: articleId }, function (result) {
+                        location.href = "@Url.Content("../Charm/Details?articleId=" + @Model.Goods.First().GoodsId)"
+
+                    });
+
+                }
+                
+              } else {
+                    location.href = "@Url.Content("../Home/Login?returnUrl=/Charm/Details?articleId=" + @Model.Goods.First().GoodsId)"
+            }
+
+        });*@
+        
+        
+
+
+    </script>
+
+
+
+
+    <script type="text/javascript">
+        //var n = 1; //设置当前页数，全局变量 
+        //var TotalPages = $("#totalPage").val();
+        
+        
+            @*$(document).ready(function () {
+
+                $(window).scroll(function () {
+
+                    if ($(document).scrollTop() <= 0) {
+                        //alert("滚动条已经到达顶部为0");
+                    }
+
+                    if ($(document).scrollTop() >= $(document).height() - $(window).height()) {
+                        n++;
+
+                        //alert("滚动条已经到达底部为" + $(document).scrollTop());
+
+                        if (n <= TotalPages) {
+
+                            $.ajax({
+                                type: "post",
+                                url: "/Charm/GetCharmMemberCommentByPage/",
+                                data: { CurrentPage: n, articleId: '@Model.id' },
+                                dataType: "json",
+                                success: function (data) {
+                                    $("#loadgif").hide();
+                                    var data = JSON.parse(JSON.stringify(data))
+                                    console.log(data);
+                                    insertDiv(data);
+
+                                },
+                                beforeSend: function () {
+
+                                    $("#loadgif").show();
+                                },
+                                error: function () {
+                                    $(".loaddiv").hide();
+                                }
+                            });
+
+                        }*@
+
+
+
+
+            //            function insertDiv(json) {
+
+            //                var $mainDiv = $(".posts");
+            //                var $mainDiv = $("#comments");
+            //                var CharmMemberCommentsList = json.MemberComments.Items;
+            //                var html = '';
+
+            //                for (var i = 0; i < CharmMemberCommentsList.length; i++) {
+            //                    if (CharmMemberCommentsList[i].UpdateOn != "") {
+            //                        var time_stamp = CharmMemberCommentsList[i].UpdateOn.replace("/Date(", "").replace(")/", "");
+            //                        var data_time = format(parseInt(time_stamp));
+                                   
+            //                    } else {
+            //                        var data_time = "";
+
+            //                    }
+                                
+            //                    html += '<div class="comment-item">';
+            //                    html += '  <div class="comment-profile clearfix">';
+            //                    html += '    <img class="cursor-pointer pull-left" src="' + CharmMemberCommentsList[i].HeadImageUrl + '">';
+            //                    html += '    <div class="name">';
+            //                    html += '       <span>' + CharmMemberCommentsList[i].NickName + '</span>';
+            //                    html += '       <span class="time pull-right">' + data_time + '</span>';
+            //                    html += '    </div>';
+            //                    html += '    <div class="comment-desc">' + CharmMemberCommentsList[i].CommentContent + '</div>';
+            //                    html += '  </div>';
+            //                    html += ' </div>';
+
+
+            //                }
+
+                           
+            //                $mainDiv.append(html);
+            //              }
+
+
+
+            //        }
+            //    });
+            //});
+
+
+        function add0(m) { return m < 10 ? '0' + m : m }
+        function format(shijianchuo) {
+            //shijianchuo是整数，否则要parseInt转换
+            var time = new Date(shijianchuo);
+            var y = time.getFullYear();
+            var m = time.getMonth() + 1;
+            console.log(m);
+            var d = time.getDate();
+            var h = time.getHours();
+            var mm = time.getMinutes();
+            var s = time.getSeconds();
+            return y + '/' + m + '/' + d + ' ' + h + ':' + add0(mm) + ':' + add0(s);
+        }
+        
+
+        </script>
+
+
+
+
+
+
+}
+
+
+
+
+          
+                       
+            

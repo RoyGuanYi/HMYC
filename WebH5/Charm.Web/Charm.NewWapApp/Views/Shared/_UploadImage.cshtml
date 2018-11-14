@@ -1,0 +1,36 @@
+﻿<link href="~/assets/bootstrap-fileinput/css/fileinput.min.css" rel="stylesheet" />
+<script src="~/assets/bootstrap-fileinput/js/fileinput.min.js"></script>
+<script src="~/assets/bootstrap-fileinput/js/locales/zh.js"></script>
+<style type="text/css">
+    .modal {
+            margin-top: 20%
+    }
+</style>
+    <div class="col-md-9">
+        <button id="btn_importImage" type="button" class="btn btn-default">
+            <span class="glyphicon glyphicon-import" aria-hidden="true"></span>选择图片
+        </button>
+    </div>
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-9">
+        <ul class="ace-thumbnails clearfix nav"></ul>
+    </div>
+
+
+
+<div class="modal fade" id="myImportImage"  data-backdrop="false" tabindex="-1" role="dialog" aria-labelledby="myImportImageLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myImportImageLabel">请选择上传的图片</h4>
+            </div>
+            <div class="modal-body">
+                <input type="file" name="txt_file" id="txt_file" multiple class="file-loading" />
+            </div>
+        </div>
+    </div>
+</div>
+
+

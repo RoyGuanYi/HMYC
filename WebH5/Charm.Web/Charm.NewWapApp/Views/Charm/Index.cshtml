@@ -1,0 +1,300 @@
+﻿@{
+    ViewBag.Title = "Charm";
+}
+@using Charm.Entity.API;
+@model Charm.Entity.API.Goods.GoodsInfoResponse
+<!-- Swiper -->
+<div class="meiti meiti-banner wow fadeInDown animated" style="visibility: visible; animation-name: fadeInDown;">
+	<div class="container">
+		<div class="txt">
+			<h1>华恒</h1>
+			<p>商品从此开始</p>
+		</div>
+	</div>
+</div>
+<div class="posts">
+
+
+    @if (Model != null &&Model.RspCode == ReponseCode.Success.GetHashCode()&& Model.Goods != null && Model.Goods.Count > 0)
+    {
+
+        foreach (var item in Model.Goods)
+        {
+                <div class="post">
+		            <header class="profile">
+                    
+                        <img src="@item.BrandLogo" class="pull-left">
+                       
+			            <div class="name"><span>@item.BrandName</span><span class="create-time pull-right">@item.GoodsModifyTime</span></div>
+		            </header>
+		             <a href="@Url.Content("../Charm/Details?goodsId="+ @item.GoodsId)"><h1 class="post-title"><nobr>@item.GoodsName</nobr></h1></a>
+		           @if (item.Images != null&& item.Images.Count>0)
+                   {
+                    <a href="@Url.Content("../Charm/Details?goodsId="+ @item.GoodsId)"><div class="image-single"><img src="@item.Images[0].GoodsOriginalImg"></div></a>
+                     }
+		            <div class="comments-wrapper">
+                 
+                 @*@if (item.MemberComment!= null)
+                 {
+
+                     foreach (var comments in item.MemberComment.Items)
+                     {
+                         <div class="comment">
+                            
+				            <span class="name">@comments.NickName: </span><span class="comment-content">@comments.CommentContent</span>
+			            </div>
+
+                     }
+                     
+                     <div class="comments-count">共 @item.MemberComment.TotalRecords 条评论</div>
+                 
+                 }else{
+                 
+                     <div class="comments-count">共0条评论</div>
+                 }*@
+          
+                 
+
+			           @* <div class="comment">
+				            <span class="name">方：</span><span class="comment-content">真美的大餐</span>
+			            </div>
+			            <div class="comment">
+				            <span class="name">柯柯：</span><span class="comment-content">这是一餐的量吗</span>
+			            </div>
+			            <div class="comment">
+				            <span class="name">独角戏：</span><span class="comment-content">完美！！！</span>
+			            </div>
+			            <div class="comments-count">共15条评论</div>*@
+		            </div>
+	            </div>
+                         
+                         
+             }
+              <div id="div2" style="clear:both;"></div>
+                     
+      }
+
+
+
+
+
+	
+	@*<div class="post">
+		<header class="profile">
+			<img src="~/img/2.jpg" class="pull-left">
+			<div class="name"><span>巴拉拉</span><span class="create-time pull-right">2016/06/17 14:56</span></div>
+		</header>
+		<h1 class="post-title">哪有什么天生如此，我们不过是天天坚持</h1>
+		<div class="image-single"><img src="~/img/002.jpg"></div>
+		<div class="comments-wrapper">
+			<div class="comment">
+				<span class="name">方：</span><span class="comment-content">真美的大餐</span>
+			</div>
+			<div class="comment">
+				<span class="name">柯柯：</span><span class="comment-content">这是一餐的量吗</span>
+			</div>
+			<div class="comment">
+				<span class="name">独角戏：</span><span class="comment-content">完美！！！</span>
+			</div>
+			<div class="comments-count">共15条评论</div>
+		</div>
+	</div>
+	<div class="post">
+		<header class="profile">
+			<img src="~/img/3.jpg" class="pull-left">
+			<div class="name"><span>胖墩墩</span><span class="create-time pull-right">2016/06/17 14:56</span></div>
+		</header>
+		<h1 class="post-title">花式秀恩爱</h1>
+		<div class="image-single"><img src="~/img/003.jpg"></div>
+		<div class="comments-wrapper">
+			<div class="comment">
+				<span class="name">方：</span><span class="comment-content">真美的大餐</span>
+			</div>
+			<div class="comment">
+				<span class="name">柯柯：</span><span class="comment-content">这是一餐的量吗</span>
+			</div>
+			<div class="comment">
+				<span class="name">独角戏：</span><span class="comment-content">完美！！！</span>
+			</div>
+			<div class="comments-count">共15条评论</div>
+		</div>
+	</div>
+	<div class="post">
+		<header class="profile">
+			<img src="~/img/4.jpg" class="pull-left">
+			<div class="name"><span>莎啦啦</span><span class="create-time pull-right">2016/06/17 14:56</span></div>
+		</header>
+		<h1 class="post-title">练背</h1>
+		<div class="image-single"><img src="~/img/004.jpg"></div>
+		<div class="comments-wrapper">
+			<div class="comment">
+				<span class="name">方：</span><span class="comment-content">真美的大餐</span>
+			</div>
+			<div class="comment">
+				<span class="name">柯柯：</span><span class="comment-content">这是一餐的量吗</span>
+			</div>
+			<div class="comment">
+				<span class="name">独角戏：</span><span class="comment-content">完美！！！</span>
+			</div>
+			<div class="comments-count">共15条评论</div>
+		</div>
+	</div>
+	<div class="post">
+		<header class="profile">
+			<img src="~/img/1.jpg" class="pull-left">
+			<div class="name"><span>柯南</span><span class="create-time pull-right">2016/06/17 14:56</span></div>
+		</header>
+		<h1 class="post-title">分享我的健身餐</h1>
+		<div class="image-single"><img src="img/001.jpg"></div>
+		<div class="comments-wrapper">
+			<div class="comment">
+				<span class="name">方：</span><span class="comment-content">真美的大餐</span>
+			</div>
+			<div class="comment">
+				<span class="name">柯柯：</span><span class="comment-content">这是一餐的量吗</span>
+			</div>
+			<div class="comment">
+				<span class="name">独角戏：</span><span class="comment-content">完美！！！</span>
+			</div>
+			<div class="comments-count">共15条评论</div>
+		</div>
+	</div>
+	<div class="post">
+		<header class="profile">
+			<img src="~/img/2.jpg" class="pull-left">
+			<div class="name"><span>晓东</span><span class="create-time pull-right">2016/06/17 14:56</span></div>
+		</header>
+		<h1 class="post-title">哪有什么天生如此，我们不过是天天坚持</h1>
+		<div class="image-single"><img src="~/img/002.jpg"></div>
+		<div class="comments-wrapper">
+			<div class="comment">
+				<span class="name">方：</span><span class="comment-content">真美的大餐</span>
+			</div>
+			<div class="comment">
+				<span class="name">柯柯：</span><span class="comment-content">这是一餐的量吗</span>
+			</div>
+			<div class="comment">
+				<span class="name">独角戏：</span><span class="comment-content">完美！！！</span>
+			</div>
+			<div class="comments-count">共15条评论</div>
+		</div>
+	</div>*@
+	
+</div>
+<div id="loadgif" style="display:none">
+　　<img  alt="加载中..." src="/img/07.gif" />
+</div>
+
+@section CustomJS{
+        <script type="text/javascript">
+            var n = 1; //设置当前页数，全局变量 
+            var TotalPages = 1;
+            @{ var pageCount = 1; }
+            @if (Model!=null&&Model.RspCode== ReponseCode.Success.GetHashCode()&& Model.Goods!=null&&Model.Goods.Count>0)
+            {
+                pageCount = Model.TotalPage;
+            }
+            TotalPages=@pageCount;
+            $(document).ready(function () {
+
+                $(window).scroll(function () {
+
+        if ($(document).scrollTop() <= 0) {
+                        //alert("滚动条已经到达顶部为0");
+                    }
+
+                    if ($(document).scrollTop() >= $(document).height() - $(window).height()) {
+                        n++;
+
+                        //alert("滚动条已经到达底部为" + $(document).scrollTop());
+
+                        if (n <= TotalPages) {
+
+                            $.ajax({
+                                type: "post",
+                                url: "/Charm/GetCharmByPage/",
+                                data: { CurrentPage: n},
+                                dataType: "json",
+                                success: function (data) {
+                                    $("#loadgif").hide();
+                                    var data = JSON.parse(JSON.stringify(data))
+                                    insertDiv(data);
+
+                                },
+                                beforeSend: function () {
+
+                                    $("#loadgif").show();
+                                },
+                                error: function () {
+                                    $(".loaddiv").hide();
+                                }
+                            });
+
+                        }
+
+
+
+
+                        function insertDiv(json) {
+
+                            var $mainDiv = $(".posts");
+                           
+                            var html = '';
+                            if(json!=null&&json.Goods!=null)
+                            {
+                                var ArticleList = json.Goods;
+                                for (var i = 0; i < ArticleList.length; i++) {
+                                    html += '<div class="post">';
+                                    html += '  <header class="profile">';
+                                    html += '    <img src="' + ArticleList[i].BrandLogo + '" class="pull-left">';
+                                    html += '    <div class="name"><span>' + ArticleList[i].BrandLogo + '</span><span class="create-time pull-right">' + ArticleList[i].GoodsModifyTime + '</span></div>';
+                                    html += '  </header>';
+                                    html += '  <a href="../Charm/Details?goodsId=' + ArticleList[i].GoodsId + '"><h1 class="post-title">' + ArticleList[i].GoodsName + '</h1></a>';
+                                    html += '  <a href="../Charm/Details?goodsId=' + ArticleList[i].GoodsId + '"><div class="image-single"><img src="' + ArticleList[i].GoodsOriginalImg[0] + '"></div></a>';
+                                    html += '  <div class="comments-wrapper">';
+                                    //if (ArticleList.MemberComment != null) {
+                                    //    for (var j = 0; j < ArticleList.MemberComment.Items.length; j++) {
+
+                                    //        html += '     <div class="comment">';
+                                    //        html += '        <span class="name">方：</span><span class="comment-content">真美的大餐</span>';
+                                    //        html += '     </div>';
+                                    //        html += '     <div class="comment">';
+                                    //        html += '        <span class="name">柯柯：</span><span class="comment-content">这是一餐的量吗</span>';
+                                    //        html += '     </div>';
+                                    //        html += '     <div class="comment">';
+                                    //        html += '        <span class="name">独角戏：</span><span class="comment-content">完美！！！</span>';
+                                    //        html += '     </div>';
+
+
+                                    //    }
+                                    //    html += '     <div class="comments-count"> 共:' + ArticleList[i].MemberComment.Items.TotalRecords + '条评论</div>';
+
+                                    //}else{
+
+                                    //    html += '     <div class="comments-count"> 共0条评论</div>';
+                                    //}
+
+
+                                    html += '  </div>';
+                                    html += ' </div>';
+
+
+                                }
+                            }
+                           
+                            html += ' <div id="div2" style="clear:both;"></div>';
+                            $mainDiv.append(html);
+                        }
+
+
+
+                    }
+                });
+            });
+
+
+
+        </script>
+                       
+                       
+               }

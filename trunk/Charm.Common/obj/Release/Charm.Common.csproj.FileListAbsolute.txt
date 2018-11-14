@@ -1,0 +1,10 @@
+D:\charm\trunk\Charm.Common\bin\Release\Charm.Common.dll
+D:\charm\trunk\Charm.Common\bin\Release\Charm.Common.pdb
+D:\charm\trunk\Charm.Common\obj\Release\Charm.Common.csprojResolveAssemblyReference.cache
+D:\charm\trunk\Charm.Common\obj\Release\Charm.Common.dll
+D:\charm\trunk\Charm.Common\obj\Release\Charm.Common.pdb
+D:\charm\trunk\Charm.Common\bin\Release\System.Web.Mvc.dll
+D:\charm\trunk\Charm.Common\bin\Release\Microsoft.Web.Infrastructure.dll
+D:\charm\trunk\Charm.Common\bin\Release\System.Web.Mvc.xml
+D:\charm\trunk\Charm.Common\bin\Release\Microsoft.Web.Infrastructure.xml
+D:\charm\trunk\Charm.Common\bin\Release\zh-Hans\System.Web.Mvc.resources.dll

@@ -1,0 +1,202 @@
+﻿
+
+
+
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+
+@model CharmMananger.Models.Business.CharmGoodsInfoDTO
+
+<div class="container">
+    <div class="form form-horizontal">
+
+
+        @Html.HiddenFor(d => d.Goods_id)
+
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>商品名称</label>
+            <div class="col-xs-5 control-label">
+                @Model.Goods_Name
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>商品点击此时</label>
+            <div class="col-xs-5 control-label">
+                @Model.Click_Count
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>市场价格</label>
+            <div class="col-xs-5 control-label">
+                @Model.Market_Price
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>门市价</label>
+            <div class="col-xs-5 control-label">
+                @Model.Shop_Price
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>商品关键词</label>
+            <div class="col-xs-5 control-label">
+                @Model.Goods_Keywords
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>商品简介</label>
+            <div class="col-xs-5 control-label">
+                @Model.Goods_Brief
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>是否是实物</label>
+            <div class="col-xs-5 control-label">
+                @Model.IsRealGoodsShow
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>是否开售</label>
+            <div class="col-xs-5 control-label">
+                @Model.IsOnSaleShow
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>排序</label>
+            <div class="col-xs-5 control-label">
+                @Model.Sort_Order
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>创建人</label>
+            <div class="col-xs-5 control-label">
+                @Model.Create_By
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>创建时间</label>
+            <div class="col-xs-5 control-label">
+                @Model.Create_Time
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>修改人</label>
+            <div class="col-xs-5 control-label">
+                @Model.Modify_By
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>修改时间</label>
+            <div class="col-xs-5 control-label">
+                @Model.Modify_Time
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>修改人（admin）</label>
+            <div class="col-xs-5 control-label">
+                @Model.Modify_By_Admin
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>修改时间（admin）</label>
+            <div class="col-xs-5 control-label">
+                @Model.Modify_Time_Admin
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>商品点赞次数</label>
+            <div class="col-xs-5 control-label">
+                @Model.Collection_Count
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>排序</label>
+            <div class="col-xs-5 control-label">
+                @Model.Sort_Order
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>品牌</label>
+            <div class="col-xs-5 control-label">
+                @Model.Brand_Name
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>商品类别</label>
+            <div class="col-xs-5 control-label">
+                @Model.Category_Name
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>商品介绍</label>
+            <div class="col-xs-5 control-label">
+                @Model.Goods_Desc
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>产品图片</label>
+            <div class="col-xs-5 control-label">
+               @foreach (var item in ViewBag.ImageList as List<CharmMananger.Models.Business.CharmMstGoodsImageDTO>) {
+                   <img src="@item.Goods_Thumb_Img" />
+               }
+            </div>
+        </div>
+        <a href="/User/Home" class="btn default J_CloseModal"><i class="fa fa-undo"></i>&nbsp;返  回</a>
+    </div>
+</div>

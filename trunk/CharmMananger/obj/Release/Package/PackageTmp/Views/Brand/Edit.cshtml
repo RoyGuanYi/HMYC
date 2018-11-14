@@ -1,0 +1,174 @@
+﻿
+
+
+
+
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+@section PluginsJS {
+    <script src="~/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+    <script src="~/assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
+}
+
+@model CharmMananger.Models.Business.CharmBusinessBrandDTO
+
+<div class="container">
+    @using (Html.BeginForm("Edit", "Brand", FormMethod.Post, new { @class = "J_FormValidate" }))
+    {
+        <div class="form form-horizontal">
+
+            @Html.HiddenFor(d => d.Brand_Id)		         
+
+
+            <div class="form-group">
+                <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>Brand_Name</label>
+                <div class="col-xs-5">
+
+                    @Html.TextBoxFor(p => p.Brand_Name, new { @class = "form-control required" })
+                </div>
+                <label class="col-xs-4 help-inline J_ValidateMsg"></label>
+            </div>
+
+
+            <div class="form-group">
+                <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>Brand_Logo</label>
+                <div class="col-xs-5">
+
+                    @Html.TextBoxFor(p => p.Brand_Logo, new { @class = "form-control required" })
+                </div>
+                <label class="col-xs-4 help-inline J_ValidateMsg"></label>
+            </div>
+
+
+            <div class="form-group">
+                <label class="col-xs-3 control-label">Brand_Desc</label>
+                <div class="col-xs-5">
+
+                    @Html.TextBoxFor(p => p.Brand_Desc, new { @class = "form-control" })
+                </div>
+                <label class="col-xs-4 help-inline J_ValidateMsg"></label>
+            </div>
+
+
+            <div class="form-group">
+                <label class="col-xs-3 control-label">Site_Url</label>
+                <div class="col-xs-5">
+
+                    @Html.TextBoxFor(p => p.Site_Url, new { @class = "form-control" })
+                </div>
+                <label class="col-xs-4 help-inline J_ValidateMsg"></label>
+            </div>
+
+
+            <div class="form-group">
+                <label class="col-xs-3 control-label">Site_Short_Url</label>
+                <div class="col-xs-5">
+
+                    @Html.TextBoxFor(p => p.Site_Short_Url, new { @class = "form-control" })
+                </div>
+                <label class="col-xs-4 help-inline J_ValidateMsg"></label>
+            </div>
+
+
+            <div class="form-group">
+                <label class="col-xs-3 control-label">Sort_Order</label>
+                <div class="col-xs-5">
+
+                    @Html.TextBoxFor(p => p.Sort_Order, new { @class = "form-control", number = true })
+                </div>
+                <label class="col-xs-4 help-inline J_ValidateMsg"></label>
+            </div>
+
+
+            <div class="form-group">
+                <label class="col-xs-3 control-label">Is_Show</label>
+                <div class="col-xs-5">
+
+                    @Html.CheckBoxFor(p => p.Is_Show)
+                </div>
+                <label class="col-xs-4 help-inline J_ValidateMsg"></label>
+            </div>
+
+
+            <div class="form-group">
+                <label class="col-xs-3 control-label">Is_Hot</label>
+                <div class="col-xs-5">
+
+                    @Html.CheckBoxFor(p => p.Is_Hot)
+                </div>
+                <label class="col-xs-4 help-inline J_ValidateMsg"></label>
+            </div>
+
+
+            <div class="form-group">
+                <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>商家编号，唯一不能重复，跟在URL后的QUERYSTRING。</label>
+                <div class="col-xs-5">
+
+                    @Html.TextBoxFor(p => p.Brand_Code, new { @class = "form-control required", number = true })
+                </div>
+                <label class="col-xs-4 help-inline J_ValidateMsg"></label>
+            </div>
+
+
+            <div class="form-group">
+                <label class="col-xs-3 control-label">Create_By</label>
+                <div class="col-xs-5">
+
+                    @Html.TextBoxFor(p => p.Create_By, new { @class = "form-control" })
+                </div>
+                <label class="col-xs-4 help-inline J_ValidateMsg"></label>
+            </div>
+
+
+            <div class="form-group">
+                <label class="col-xs-3 control-label">Create_Time</label>
+                <div class="col-xs-5">
+
+                    @Html.TextBoxFor(p => p.Create_Time, new { @class = "form-control" })
+                </div>
+                <label class="col-xs-4 help-inline J_ValidateMsg"></label>
+            </div>
+
+
+            <div class="form-group">
+                <label class="col-xs-3 control-label">Modify_By</label>
+                <div class="col-xs-5">
+
+                    @Html.TextBoxFor(p => p.Modify_By, new { @class = "form-control" })
+                </div>
+                <label class="col-xs-4 help-inline J_ValidateMsg"></label>
+            </div>
+
+
+            <div class="form-group">
+                <label class="col-xs-3 control-label">Modify_Time</label>
+                <div class="col-xs-5">
+
+                    @Html.TextBoxFor(p => p.Modify_Time, new { @class = "form-control" })
+                </div>
+                <label class="col-xs-4 help-inline J_ValidateMsg"></label>
+            </div>
+
+
+            <div class="form-group">
+                <label class="col-xs-3 control-label">商家联系方式</label>
+                <div class="col-xs-5">
+
+                    @Html.TextBoxFor(p => p.Brand_Phone, new { @class = "form-control" })
+                </div>
+                <label class="col-xs-4 help-inline J_ValidateMsg"></label>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-xs-9 col-xs-offset-3">
+                    <button type="submit" value="保存" class="btn blue"><i class="fa fa-plus"></i>&nbsp;保存</button>
+                </div>
+            </div>
+        </div>
+    }
+</div>

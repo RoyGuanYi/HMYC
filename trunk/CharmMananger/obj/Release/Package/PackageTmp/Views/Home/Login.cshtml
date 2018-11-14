@@ -1,0 +1,129 @@
+﻿
+@{
+    ViewBag.Title = "登陆";
+    this.Layout = null;
+}
+@model CharmMananger.Models.Role.CharmCommonUserInfoDTO
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>登陆</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <link href="~/assets/charm/css/login/login.css" rel='stylesheet' type='text/css' />
+    <!--webfonts-->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,600,800,400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Marvel:400,700' rel='stylesheet' type='text/css'>
+    <!--//webfonts-->
+</head>
+<body>
+    <h1>Charm</h1>
+    <div class="registration">
+        <div class="form-info">
+           @using (Html.BeginForm("Login", "Home", FormMethod.Post))
+           {
+                <h2>登陆</h2>
+                @Html.TextBoxFor(m => m.UserAccount, new {@class= "text", required = "", type = "text", placeholder = "用户名" })
+                @Html.TextBoxFor(m => m.UserPassword, new { @class = "Password", required = "", type = "password", placeholder = "密码" })
+                <div>
+                    <ul>
+                        <li style="width:65%;float:left">
+                            @Html.TextBoxFor(m => m.AuthCode, new { @class = "text", required = "", type = "text", placeholder = "验证码" })
+                        </li>
+                        <li style="width:70px;float:right">
+                            <img src="/Home/SecurityCode" height="44" width="70" onclick="this.src=this.src+'?'" title="验证码" alt="验证码" />
+                        </li>
+                        <li class="clear"></li>
+                    </ul>
+                </div>
+
+                <div class="roundedOne">
+                    <input type="checkbox" value="None"  id="roundedOne" name="check" />
+                    <label for="roundedOne"> </label>
+                    <p>记住</p>
+                    @Html.HiddenFor(m=>m.IsRememberMe)
+                </div>
+                <div class="btn"><input type="submit" onclick="return LoginAuth();" value="登陆"></div>
+
+                <div class="clear"> </div>
+           }
+        </div>
+    </div>
+    <div class="copy-rights">
+        <p> 2018 &copy;CharmClub.</p>
+    </div>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script>
+
+        $(function(){
+            if ($("#IsRememberMe").val() === "True") {
+                $("#roundedOne").prop('checked', true);
+            }
+            else {
+                $("#roundedOne").prop('checked', false);
+            }
+        });
+        function LoginAuth()
+        {
+            if ($("#roundedOne").is(":checked")) {
+                $("#IsRememberMe").val(true);
+            }
+            else
+            {
+                   $("#IsRememberMe").val(false);
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>
+@*<body>
+    <div class="htmleaf-container">
+        <div class="wrapper">
+            <div class="container">
+                <h1>Charm</h1>
+                @using (Html.BeginForm("Login", "Home", FormMethod.Post))
+                    {
+                    @Html.TextBoxFor(m => m.UserAccount, new { type = "text", id = "inputName", placeholder = "用户名" })
+                    @Html.TextBoxFor(m => m.UserPassword, new {  type = "password", id = "inputPassword", placeholder = "密码" })
+                    <div class="divAuthCode">
+                        @Html.TextBoxFor(m => m.UserPassword, new {@class="txtAuthCode" ,id = "inputImg", type = "text", placeholder = "验证码" })
+                        <div class="AuthCodeImage"><img src="/Home/SecurityCode" onclick="this.src=this.src+'?'" title="验证码" alt="验证码" /></div>
+                    </div>
+
+
+                    <div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox">记住
+                            </label>
+
+                        </div>
+                        <button type="submit" id="login-button">登陆</button>
+                    </div>
+
+                    <div class="copyright">
+
+                        2018 &copy;CharmClub.
+
+                    </div>
+                    }
+
+            </div>
+
+            <ul class="bg-bubbles">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+    </div>
+</body>*@

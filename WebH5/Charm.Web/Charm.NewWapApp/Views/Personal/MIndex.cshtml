@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "Personal";
+   
+}
+
+<!-- Swiper -->
+<div class="swiper-container swiper-container-vertical swiper-container-android people">
+    <div class="swiper-wrapper">
+        <div class="peopleInfo">
+            @if (ViewBag.CurrentUser == null)
+            {
+                <img src="~/img/004.jpg" />
+                <h5>Charm</h5>
+            }
+            else
+            {
+                <img src="@ViewBag.CurrentUser.Avatar" />
+                <h5>@ViewBag.CurrentUser.UserName</h5>
+            }
+        </div>
+        <ul class="nav">
+            <li>
+                <a href="@Url.Content("../Personal/Index")">
+                    <em>
+                        <img src="~/img/mlq.png" /></em>
+                    <span>产品中心</span>
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Content("../Personal/Setting")">
+                    <em>
+                        <img src="~/img/set.png" /></em>
+                    <span>商家设置</span>
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Content("../Personal/LogOut")">
+                    <em>
+                        <img src="~/img/out.png" /></em>
+                    <span>退出</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,189 @@
+﻿@{
+    ViewBag.Title = "MSend";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var user = LoginHelper.Instance.GetLoginUser<UserInfo>();
+}
+@using Charm.Common
+@using Charm.Common.Models
+@using Charm.Common.Models.ApiResponse
+
+<style type="text/css">
+
+            select{
+                font-family: "微软雅黑";
+                margin:15px;
+                background: rgba(0,0,0,0);
+                width: 180px;
+                height: 25px;
+                font-size: 10px;
+                text-align: center;
+                border: 1px #1a1a1a solid;
+                border-radius: 5px;
+            }
+            option{
+                color: black;
+                background: #A6E1EC;
+                line-height: 20px;
+            }
+            select:focus{
+                border: 2px #ddd solid;
+                box-shadow: 0 0 15px 1px #DDDDDD;
+            }
+            option:hover{
+                background: #EBCCD1;
+            }
+
+
+      
+
+          label {
+        display: inline;
+    }
+ 
+   
+   
+</style>
+<h2>MSend</h2>
+<div class="swiper-container swiper-container-vertical swiper-container-android people">
+    <div class="swiper-wrapper">
+        <div class="mark_info">
+            <div class="top_div">
+                <div class='cancel'>取消</div>
+                <div class='send'>发送</div>
+            </div>
+            <form id="uploadForm" action="/Personal/CreateCharm" method="post" enctype="multipart/form-data">
+                 <input name="MemberId" type="hidden" value="@user.Account" />
+                 <textarea  maxlength="100" placeholder="产品介绍..." name="ArticleName" id="desc"></textarea>
+                 <br />
+               
+                &nbsp; 分类一: <select>
+                        <option value="chrome">我们的距离了撒大撒大撒两</option>
+                        <option value="safari">safari</option>
+                        <option value="Edge">Edge</option>
+                        <option value="firefox">firefox</option>
+                        <option value="ie8">ie8</option>
+                    </select>
+                
+                &nbsp;&nbsp;分类二: <select>
+                    <option value="chrome">chrome12331231233213213</option>
+                    <option value="safari">safari</option>
+                    <option value="Edge">Edge</option>
+                    <option value="firefox">firefox</option>
+                    <option value="ie8">ie8</option>
+                </select><br />
+                &nbsp;&nbsp;开放销售:
+                <input type="checkbox" id="checkbox-1-1" class="regular-checkbox" />是
+                <input type="checkbox" id="checkbox-1-2" class="regular-checkbox" />否<br /><br />
+                &nbsp;&nbsp;产品排序:
+                <input type="text" name="栏位名称" value="123" size="10" maxlength="10" ><br /><br />
+               
+             
+                
+                <div id="demo">
+                <div id="as" ></div>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section CustomCSS
+{
+    <link href="~/css/diyUpload.css" type="text/css" rel="stylesheet" />
+    @*<link href="~/css/webuploader.css" rel="stylesheet" />*@
+}
+
+@section CustomJS
+{
+    @*<script type="text/javascript" src="~/js/webuploader.html5only.min.js"></script>*@
+    <script type="text/javascript" src="~/js/webuploader.js"></script>
+    <script type="text/javascript" src="~/js/diyUpload.js"></script>
+    <script type="text/javascript">
+        //发帖
+        var isWindow = navigator.userAgent.indexOf("Windows");
+        if (isWindow == -1) { //移动端砍掉该砍掉的
+            $(".mark_info").addClass("phone");
+            $(".phone .top_div .cancel").addClass("hide");
+        }
+
+
+        /*
+		* 服务器地址,成功返回,失败返回参数格式依照jquery.ajax习惯;
+		* 其他参数同WebUploader
+		*/
+        $('#as').diyUpload({
+            // 选完文件后，是否自动上传。
+            auto: true,
+            url: "/Charm/Upload",
+            success: function(file, data) {
+                var filePath = data.Url;
+                $("#" + file.id).attr("value", filePath);
+                console.info(data);
+            },
+            error: function(err) {
+                console.info(err);
+            },
+            buttonText: '添加图片',
+            chunked: true,
+            // 分片大小
+            chunkSize: 512 * 1024,
+            //最大上传的文件数量
+            fileNumLimit: 6,
+            //, 总文件大小
+            fileSizeLimit: 500000 * 1024,
+            //,单个文件大小(单位字节);
+            fileSingleSizeLimit: 50000 * 1024,
+            accept: {
+                title: 'Images',
+                extensions: 'gif,jpg,jpeg,bmp,png',
+                mimeTypes: 'image/*'
+            }
+        });
+        //取消事件
+        $(".mark_info").on("click", ".cancel", function() {
+            $(".mark, .mark_info").addClass("hide");
+        });
+        $(".mark_info").on("click", ".send", function() {
+            if ($("#desc").val() == "") {
+                ShowErrorInfo("请输入这一刻的想法");
+                return false;
+            }
+            if ($("input[name='filePath']").length < 1) {
+                ShowErrorInfo("请至少上传一张图片");
+                return false;
+
+            }
+            $(".mark,.mark_info").addClass("hide");
+
+            $("#uploadForm").submit();
+        });
+
+
+        function deleteCharm(memberId, articleId) {
+            $.post("/Personal/DetailJson", { txtUser: memberId, articleId: articleId }, function(result) {
+                var data = JSON.parse(JSON.stringify(result))
+                ShowSuccessInfo(data.RspErrorMsg);
+                location.href = "@Url.Content("../Personal/Index")";
+            });
+
+        }
+
+
+        function detailBigImage(fileId, fileName) {
+            $("#myModalLabel").text(fileName);
+            var filePath = $("#" + fileId).val();
+            $("#model_img").attr("src", filePath);
+            $("#model_img").addClass("carousel-inner img-responsive img-rounded");
+            $("#myModal").modal().css({
+                width: 'auto'
+            });
+            $(".mark, .mark_info").addClass("hide");
+        }
+
+        //$('#myModal').on('hide.bs.modal', function() {
+        //    $(".mark, .mark_info").removeClass("hide");
+        //});
+
+    </script>
+}

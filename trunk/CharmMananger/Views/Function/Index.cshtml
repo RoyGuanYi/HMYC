@@ -1,0 +1,114 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using Charm.MvcExt.Base
+@using Charm.MvcExt.Extisions
+@using CharmMananger.Models.Role
+@model CharmMananger.Models.Role.CharmCommonActionInfoDTO
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="well well-sm form">
+            <div class="clearfix form-body search-wrapper">
+                @using (Html.BeginForm("Index", "Function", FormMethod.Get, new { id = "SearchForm" }))
+                {           
+                    @Html.HiddenFor(p => p.MenuId)
+                    <div class="col-sm-6 col-lg-4 form-group">
+                        <div class="row">
+                            <label for="" class="col-md-3 control-label">分类名称</label>
+                            <div class="col-md-9">@Html.TextBoxFor(d => d.ActionCategoryName, new { @class = "form-control input-sm" })</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-4 form-group">
+                        <div class="row">
+                            <label for="" class="col-md-3 control-label">功能名称</label>
+                            <div class="col-md-9">@Html.TextBoxFor(d => d.ActionName, new { @class = "form-control input-sm" })</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-4 form-group">
+                        <div class="row">
+                            <label for="" class="col-md-3 control-label">路径</label>
+                            <div class="col-md-9">@Html.TextBoxFor(d => d.ActionUrl, new { @class = "form-control input-sm" })</div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-sm-6 col-lg-4 form-group">
+                        <div class="row">
+                            <div class="col-md-offset-3 col-md-9">
+                                <button type="submit" class="btn blue input-sm" id="SearchSubmitBtn"><i class="fa fa-search"></i>&nbsp;搜  索</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">功能管理</h3>
+    </div>
+
+    <div class="panel-body">
+        @Html.AuthedLink("<i class=\"fa fa-plus\"></i>&nbsp;新增", "Create", "Function", "btn green btn-sm j-modal", new { modelId = this.Model.MenuId })
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>分类名称</th>
+                    <th>功能名称</th>
+                    <th>路径</th>
+                    <th>启用</th>
+                    <th>可见</th>
+                    <th>记录日志</th>
+                    <th>排序</th>
+                    <th>创建时间</th>
+                    <th>创建人账户</th>
+                    <th>修改日期</th>
+                    <th>修改人账号</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    var list = ViewBag.Functions as List<CharmCommonActionInfoDTO>;
+                }
+                @foreach (var m in list)
+                {
+                    <tr>
+                        <td>@m.ActionCategoryName</td>
+                        <td>@m.ActionName</td>
+                        <td>@m.ActionUrl</td>
+                        <td>@m.IsEnable.GetText()</td>
+                        <td>@m.IsVisible.GetText()</td>
+                        <td>@m.IsLog.GetText()</td>
+                        <td>@m.Sort</td>
+                        <td>@m.CreateDate.GetText()</td>
+                        <td>@m.CreateBy</td>
+                        <td>@m.ModifyDate.GetText()</td>
+                        <td>@m.ModifyBy</td>
+                        <td>
+                            @Html.AuthedLink("<i class='fa fa-edit'></i>修改", "Edit", "Function", "btn btn-xs link j-modal", null, new { id = m.ActionId })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="panel-footer">
+
+        @{
+            var pageModel = (PageModel)ViewBag.PM;
+        }
+
+        @Html.Pager("page", pageModel.CurrentPage, pageModel.PageSize, pageModel.Total, PageMode.Numeric)
+
+    </div>
+</div>
+

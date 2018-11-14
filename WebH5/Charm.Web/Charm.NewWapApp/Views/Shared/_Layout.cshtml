@@ -1,0 +1,217 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>华恒科技</title>
+    <meta name="description" content="专业的综合网上购物商城,销售家电、数码通讯、电脑、家居百货、服装服饰、母婴、图书、食品等数万个品牌优质商品.便捷、诚信的服务，为您提供愉悦的网上购物体验!">
+    <meta name="keywords" content="网上购物,网上商城,手机,笔记本,电脑,MP3,CD,VCD,DV,相机,数码,配件,手表,存储卡">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/swiper.min.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <script src="~/js/jquery-1.11.3.min.js"></script>
+    <script src="~/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/js/swiper.min.js"></script>
+    <script src="~/js/toastr.min.js"></script>
+    <link href="~/css/toastr.min.css" rel="stylesheet" />                       
+    @RenderSection("CustomCSS", false)
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top" id="page-header">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">
+                    <img src="~/img/logo.png" id="logo" class="pull-left">
+                </a>
+            </div>
+            <div id="navbar" class="navbar-collapse pull-right collapse" aria-expanded="false" style="height: 21px;">
+                <ul class="nav navbar-nav" id="action">
+                    <li><a href="/">首页</a></li>
+                    <li><a href="@Url.Content("../About/Index")">关于我们</a></li>
+                    <li><a href="@Url.Content("../Charm/Index")">产品中心</a></li>
+                    <li><a href="@Url.Content("../News/Index")">新闻活动</a></li>
+                    <li><a href="/">咨询商家</a></li>
+                    <li  class="peopleCenter"><a href="javascript:void(0);">商家中心</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    @RenderBody()
+    <footer id="page-footer">
+        <div class="container">
+            <ul class="clearfix row">
+                <li class="col-lg-3 col-md-3 col-sm-6 ">
+                    <h2>联系我们</h2>
+                    <p>
+                        江苏：江苏省苏州市工业园区科技园8栋 A座 2606
+                    </p>
+                </li>
+                <li class="col-lg-3 col-md-3 col-sm-6 ">
+                    <h2>商务合作</h2>
+                    <p>
+                        电话(江苏)：0512-3376766或85353489
+                    </p>
+                    <p>
+                        邮件：364434799@qq.com
+                    </p>
+                    <p>
+                        客服QQ：364434799
+                    </p>
+                    <p>
+                        商务QQ(江苏)：364434799或364434700
+                    </p>
+                </li>
+                <li class="col-lg-3 col-md-3 col-sm-6">
+                    <h2>加入我们</h2>
+                    <p>
+                        <a href="#">拉勾网</a>
+                    </p>
+                    <p>
+                        <a href="mailto:364434799@qq.com">364434799@qq.com</a>
+                    </p>
+                </li>
+                <li class="col-lg-3 col-md-3 col-sm-6">
+                    <h2>关注我们</h2>
+                    <div class="get-wrapper">
+                        <div>
+                            <a>官方微信
+                                <div class="get">
+                                    @*<img src="img/get.jpg">*@
+                                    <p>瘦身get</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <p>
+                        <a href="#">官方微博</a>
+                    </p>
+                    <p>
+                        <a href="#">官方淘宝店</a>
+                    </p>
+                </li>
+            </ul>
+            <p class="copyright">Copyright @@ 2013-2018 网站归华恒科技 所属公司版权所有 粤ICP备1234567890号 </p>
+        </div>
+    </footer>
+    <!--script-->
+   
+
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1200);
+            });
+
+
+        });
+
+
+        switch ('@ViewBag.Title') {
+            case 'Index':
+                $('#action li').eq(0).addClass('active');
+                break;
+            case 'About':
+                $('#action li').eq(1).addClass('active');
+                break;
+            case 'Charm':
+                $('#action li').eq(2).addClass('active');
+                break;
+            case 'News':
+                $('#action li').eq(3).addClass('active');
+                break;
+            case 'Personal':
+                $('#action li').eq(5).addClass('active');
+                break;
+
+        }
+
+
+
+
+
+
+    </script>
+
+    <!--通知插件-->
+    <script type="text/javascript">
+        $(function () {
+            toastr.options = {
+                "closeButton": true,
+                "positionClass": "toast-top-center",
+                "showDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+            }
+            var smsg = '@TempData["sjs"]';
+            var emsg = '@TempData["ejs"]';
+
+            //成功提示
+            if (smsg != '') {
+                if (window.parent && window.parent != window) {
+                    window.parent.toastr.success(smsg);
+                }
+                else {
+                    toastr.success(smsg);
+                }
+            }
+
+            //失败提示
+            if (emsg != '') {
+                if (window.parent && window.parent != window) {
+                    window.parent.toastr.error(emsg);
+                }
+                else {
+                    toastr.error(emsg);
+                }
+            }
+        });
+        //  ajax返回调用的2个方法
+        function ShowErrorInfo(emsg) {
+            if (window.parent && window.parent != window) {
+                window.parent.toastr.error(emsg);
+            }
+            else {
+                toastr.error(emsg);
+            }
+        }
+
+        function ShowSuccessInfo(smsg) {
+            if (window.parent && window.parent != window) {
+                window.parent.toastr.success(smsg);
+            }
+            else {
+                toastr.success(smsg);
+            }
+        }
+    </script>
+    
+    <script>
+        var isWindow = navigator.userAgent.indexOf("Windows");
+
+        //导航点击事件
+        $("#navbar .nav li").on("click", function() {
+            //$(this).addClass("active").siblings().removeClass("active");
+            var $this = $(this);
+            if ($this.hasClass("peopleCenter")) {
+                if (isWindow == -1) {
+                    location.href = "/Personal/MIndex";
+                } else {
+                    location.href = "/Personal/Index";
+                }
+
+            }
+        });
+	</script>
+    @RenderSection("CustomJS", false)
+
+</body>
+</html>

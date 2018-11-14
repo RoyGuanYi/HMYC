@@ -1,0 +1,204 @@
+﻿
+
+
+
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+
+@model CharmMananger.Models.Business.CharmMemberInfoDTO
+
+<div class="container">
+    <div class="form form-horizontal">
+
+        1
+        @Html.HiddenFor(d => d.Member_Id)
+
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>用户名</label>
+            <div class="col-xs-5 control-label">
+                @Model.User_Name
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>微信的ID</label>
+            <div class="col-xs-5 control-label">
+                @Model.Wechat_Id
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>用户头像</label>
+            <div class="col-xs-5 control-label">
+                @Model.User_Avatar
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>用户电话</label>
+            <div class="col-xs-5 control-label">
+                @Model.User_Phone
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>用户来源</label>
+            <div class="col-xs-5 control-label">
+                @Model.User_Source_Show
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>登录次数</label>
+            <div class="col-xs-5 control-label">
+                @Model.Login_Count
+            </div>
+        </div>
+
+
+
+        @*<div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>Create_By</label>
+            <div class="col-xs-5 control-label">
+                @Model.Create_By
+            </div>
+        </div>*@
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>创建时间</label>
+            <div class="col-xs-5 control-label">
+                @Model.Create_Time
+            </div>
+        </div>
+
+
+
+        @*<div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>Modify_By</label>
+            <div class="col-xs-5 control-label">
+                @Model.Modify_By
+            </div>
+        </div>*@
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>修改时间</label>
+            <div class="col-xs-5 control-label">
+                @Model.Modify_Time
+            </div>
+        </div>
+
+
+
+        @*<div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>网页授权接口调用凭证</label>
+            <div class="col-xs-5 control-label">
+                @Model.Wc_AccessToken
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>用户刷新access_token</label>
+            <div class="col-xs-5 control-label">
+                @Model.Wc_RefreshToken
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>Wc_AccessToken_ExpireDate</label>
+            <div class="col-xs-5 control-label">
+                @Model.Wc_AccessToken_ExpireDate
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>Wc_RefreshToken_ExpireDate</label>
+            <div class="col-xs-5 control-label">
+                @Model.Wc_RefreshToken_ExpireDate
+            </div>
+        </div>*@
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>用户性别</label>
+            <div class="col-xs-5 control-label">
+                @Model.Sex_Show
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>省份</label>
+            <div class="col-xs-5 control-label">
+                @Model.Wc_Province
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>城市</label>
+            <div class="col-xs-5 control-label">
+                @Model.Wc_City
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>国家</label>
+            <div class="col-xs-5 control-label">
+                @Model.Wc_Country
+            </div>
+        </div>
+
+
+
+        @*<div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>用户特权信息</label>
+            <div class="col-xs-5 control-label">
+                @Model.Wc_Privilege
+            </div>
+        </div>*@
+
+
+
+        @*<div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>只有在用户将公众号绑定到微信开放平台帐号后，才会出现该字段</label>
+            <div class="col-xs-5 control-label">
+                @Model.Wc_UnionId
+            </div>
+        </div>*@
+
+
+        <a href="/User/Home" class="btn default J_CloseModal"><i class="fa fa-undo"></i>&nbsp;返  回</a>
+    </div>
+</div>

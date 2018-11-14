@@ -1,0 +1,151 @@
+﻿
+
+
+
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+@using Charm.MvcExt.Extisions
+@model CharmMananger.Models.Business.CharmBusinessBrandDTO
+
+<div class="container">
+    <div class="form form-horizontal">
+        @Html.HiddenFor(d => d.Brand_Id)		 
+        
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>商家编号</label>
+            <div class="col-xs-5 control-label">
+                @Model.Brand_Code
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>商家名称</label>
+            <div class="col-xs-5 control-label">
+                @Model.Brand_Name
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>商家logo</label>
+            <div class="col-xs-5 control-label">
+                @Model.Brand_Logo
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>商家简介</label>
+            <div class="col-xs-5 control-label">
+                @Model.Brand_Desc
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>商家网址</label>
+            <div class="col-xs-5 control-label">
+                @Model.Site_Url
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>商家短地址</label>
+            <div class="col-xs-5 control-label">
+                @Model.Site_Short_Url
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>排序</label>
+            <div class="col-xs-5 control-label">
+                @Model.Sort_Order
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>是否显示</label>
+            <div class="col-xs-5 control-label">
+                @Model.Is_Show.GetText()
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>是否为热门商家</label>
+            <div class="col-xs-5 control-label">
+                @Model.Is_Hot.GetText()
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>创建人</label>
+            <div class="col-xs-5 control-label">
+                @Model.Create_By
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>创建时间</label>
+            <div class="col-xs-5 control-label">
+                @Model.Create_Time
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>修改人</label>
+            <div class="col-xs-5 control-label">
+                @Model.Modify_By
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>修改时间</label>
+            <div class="col-xs-5 control-label">
+                @Model.Modify_Time
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>商家联系方式</label>
+            <div class="col-xs-5 control-label">
+                @Model.Brand_Phone
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>商家帐号</label>
+            <div class="col-xs-5 control-label">
+                @Model.UserAccount
+            </div>
+        </div>
+
+    
+
+
+
+ <a href="/User/Home" class="btn default J_CloseModal"><i class="fa fa-undo"></i>&nbsp;返  回</a>
+    </div>
+</div>

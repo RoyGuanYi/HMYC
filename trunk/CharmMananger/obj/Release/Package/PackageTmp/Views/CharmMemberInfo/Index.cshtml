@@ -1,0 +1,135 @@
+﻿
+
+
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using Charm.MvcExt.Base
+@using Charm.MvcExt.Extisions
+@model  CharmMananger.Models.Business.CharmMemberInfoDTO
+
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="well well-sm form">
+            <div class="clearfix form-body search-wrapper">
+                @using (Html.BeginForm("Index", "CharmMemberInfo", FormMethod.Get, new { id = "SearchForm" }))
+                {
+                    <div class="col-sm-6 col-lg-4 form-group">
+                        <div class="row">
+                            <label for="" class="col-md-3 control-label">会员名称</label>
+                            <div class="col-md-9">@Html.TextBoxFor(d => d.User_Name, new { @class = "form-control input-sm" })</div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-sm-6 col-lg-4 form-group">
+                        <div class="row">
+                            <div class="col-md-offset-3 col-md-9">
+                                <button type="submit" class="btn blue input-sm" id="SearchSubmitBtn"><i class="fa fa-search"></i>&nbsp;搜  索</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Index</h3>
+    </div>
+
+    <div class="panel-body">
+        @*@Html.AuthedLink("<i class=\"fa fa-plus\"></i>&nbsp;新增", "Create", "CharmMemberInfo", "btn green btn-sm j-modal")*@
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>用户名称</th>
+
+                    <th>微信ID</th>
+
+                    <th>用户头像</th>
+
+                    <th>用户电话</th>
+
+                    <th>用户来源</th>
+
+                    <th>登录次数</th>
+
+                    <th>创建时间</th>
+
+                    <th>修改时间</th>
+
+                    <th>用户性别</th>
+
+                    <th>省份</th>
+
+                    <th>城市</th>
+
+                    <th>国家</th>
+
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var m in ViewBag.ModelList as List<CharmMananger.Models.Business.CharmMemberInfoDTO>)
+                {
+                    <tr>
+
+
+                        <td>@m.User_Name</td>
+
+                        <td>@m.Wechat_Id</td>
+
+                        <td>@m.User_Avatar</td>
+
+                        <td>@m.User_Phone</td>
+
+                        <td>@m.User_Source_Show</td>
+
+                        <td>@m.Login_Count</td>
+
+                        <td>@m.Create_Time</td>
+
+                        <td>@m.Modify_Time</td>
+
+                        <td>@m.Sex_Show</td>
+
+                        <td>@m.Wc_Province</td>
+
+                        <td>@m.Wc_City</td>
+
+                        <td>@m.Wc_Country</td>
+
+                        <td>
+                            @Html.AuthedLink("<i class=\"fa fa-plus\"></i>&nbsp;查看", "Details", "CharmMemberInfo", "btn btn-sm link j-modal", null, new { memberId = m.Member_Id })
+                            @*@Html.AuthedLink("修改", "Edit", "CharmMemberInfo", "btn btn-sm link j-modal", null, new { memberId = m.Member_Id })*@
+                            @Html.AuthedLink("删除", "Delete", "CharmMemberInfo", "", new { onclick = "return confirm('确认删除吗？')" }, new { memberId = m.Member_Id })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="panel-footer">
+
+        @{
+            var pageModel = (PageModel)ViewBag.PM;
+        }
+
+        @Html.Pager("page", pageModel.CurrentPage, pageModel.PageSize, pageModel.Total, PageMode.Numeric)
+
+    </div>
+</div>
+

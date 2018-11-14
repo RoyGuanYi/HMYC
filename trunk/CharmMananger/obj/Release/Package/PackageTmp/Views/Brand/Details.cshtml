@@ -1,0 +1,143 @@
+﻿
+
+
+
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+@model CharmMananger.Models.Business.CharmBusinessBrandDTO
+
+<div class="container">
+    <div class="form form-horizontal">
+        @Html.HiddenFor(d => d.Brand_Id)		 
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>Brand_Name</label>
+            <div class="col-xs-5 control-label">
+                @Model.Brand_Name
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>Brand_Logo</label>
+            <div class="col-xs-5 control-label">
+                @Model.Brand_Logo
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>Brand_Desc</label>
+            <div class="col-xs-5 control-label">
+                @Model.Brand_Desc
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>Site_Url</label>
+            <div class="col-xs-5 control-label">
+                @Model.Site_Url
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>Site_Short_Url</label>
+            <div class="col-xs-5 control-label">
+                @Model.Site_Short_Url
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>Sort_Order</label>
+            <div class="col-xs-5 control-label">
+                @Model.Sort_Order
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>Is_Show</label>
+            <div class="col-xs-5 control-label">
+                @Model.Is_Show
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>Is_Hot</label>
+            <div class="col-xs-5 control-label">
+                @Model.Is_Hot
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>商家编号，唯一不能重复，跟在URL后的QUERYSTRING。</label>
+            <div class="col-xs-5 control-label">
+                @Model.Brand_Code
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>Create_By</label>
+            <div class="col-xs-5 control-label">
+                @Model.Create_By
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>Create_Time</label>
+            <div class="col-xs-5 control-label">
+                @Model.Create_Time
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>Modify_By</label>
+            <div class="col-xs-5 control-label">
+                @Model.Modify_By
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>Modify_Time</label>
+            <div class="col-xs-5 control-label">
+                @Model.Modify_Time
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>商家联系方式</label>
+            <div class="col-xs-5 control-label">
+                @Model.Brand_Phone
+            </div>
+        </div>
+
+
+ <a href="/User/Home" class="btn default J_CloseModal"><i class="fa fa-undo"></i>&nbsp;返  回</a>
+    </div>
+</div>

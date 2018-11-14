@@ -1,0 +1,155 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using Charm.MvcExt.Base
+@using Charm.MvcExt.Extisions
+@model CharmMananger.Models.Business.CharmGoodsInfoDTO 
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="well well-sm form">
+            <div class="clearfix form-body search-wrapper">
+                @using (Html.BeginForm("Index", "CharmGoodsInfo", FormMethod.Get, new { id = "SearchForm" }))
+                {
+                    <div class="col-sm-6 col-lg-4 form-group">
+                        <div class="row">
+                            <label for="" class="col-md-3 control-label">商品名称</label>
+                            <div class="col-md-9">@Html.TextBoxFor(d => d.Goods_Name, new { @class = "form-control input-sm" })</div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-sm-6 col-lg-4 form-group">
+                        <div class="row">
+                            <div class="col-md-offset-3 col-md-9">
+                                <button type="submit" class="btn blue input-sm" id="SearchSubmitBtn"><i class="fa fa-search"></i>&nbsp;搜  索</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Index</h3>
+    </div>
+
+    <div class="panel-body">
+        @*@Html.AuthedLink("<i class=\"fa fa-plus\"></i>&nbsp;新增", "Create", "CharmGoodsInfo", "btn green btn-sm j-modal")*@
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>商品名称</th>
+
+                    <th>商品点击次数</th>
+
+                    <th>市场价格</th>
+
+                    <th>门市价</th>
+
+                    <th>商品关键字</th>
+
+                    <th>商品简介</th>
+
+
+                    <th>是否是实物</th>
+
+                    <th>是否放开销售</th>
+
+
+                    <th>创建人</th>
+
+                    <th>创建时间</th>
+
+                    <th>修改人</th>
+
+                    <th>修改时间</th>
+
+                    <th>修改人（admin）</th>
+
+                    <th>修改时间（admin）</th>
+
+                    <th>收藏次数</th>
+
+                    <th>排序</th>
+
+                    <th>列别</th>
+
+                    <th>品牌</th>
+
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var m in  ViewBag.ModelList as List<CharmMananger.Models.Business.CharmGoodsInfoDTO>)
+                {
+                    <tr>
+
+
+                        <td>@m.Goods_Name</td>
+
+                        <td>@m.Click_Count</td>
+
+                        <td>@m.Market_Price</td>
+
+                        <td>@m.Shop_Price</td>
+
+                        <td>@m.Goods_Keywords</td>
+
+                        <td>@m.Goods_Brief</td>
+
+                        <td>@m.IsRealGoodsShow</td>
+
+                        <td>@m.IsOnSaleShow</td>
+
+
+                        <td>@m.Create_By</td>
+
+                        <td>@m.Create_Time</td>
+
+                        <td>@m.Modify_By</td>
+
+                        <td>@m.Modify_Time</td>
+
+                        <td>@m.Modify_By_Admin</td>
+
+                        <td>@m.Modify_Time_Admin</td>
+
+                        <td>@m.Collection_Count</td>
+
+                        <td>@m.Sort_Order</td>
+
+                        <td>@m.Brand_Name</td>
+
+                        <td>@m.Category_Name</td>
+
+                        <td>
+                            @Html.AuthedLink("<i class=\"fa fa-plus\"></i>&nbsp;查看", "Details", "CharmGoodsInfo", "btn btn-sm link j-modal", null, new { goodsId = m.Goods_id })
+                            @*@Html.AuthedLink("修改", "Edit", "CharmGoodsInfo", "btn btn-sm link j-modal", null, new { goodsId = m.Goods_id })*@
+                            @Html.AuthedLink("删除", "Delete", "CharmGoodsInfo", "", new { onclick = "return confirm('确认删除吗？')" }, new { goodsId = m.Goods_id })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="panel-footer">
+
+        @{
+            var pageModel = (PageModel)ViewBag.PM;
+        }
+
+        @Html.Pager("page", pageModel.CurrentPage, pageModel.PageSize, pageModel.Total, PageMode.Numeric)
+
+    </div>
+</div>
+

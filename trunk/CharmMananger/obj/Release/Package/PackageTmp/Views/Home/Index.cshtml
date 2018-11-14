@@ -1,0 +1,47 @@
+﻿@using Charm.MvcExt.Base
+@using Charm.MvcExt.Extisions
+@using Charm.MvcExt.HtmlInput
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section customjs{
+
+}
+@*<div class="row">
+    <div class="col-xs-12">
+        <div class="well well-sm form">
+        </div>
+    </div>
+</div>*@
+@if (ViewBag.sret != null)
+{
+
+    var pageModel = (PageModel)ViewBag.PM;
+    <div class="panel-body">
+        <b>搜索结果 消耗时间：<font color="red">@ViewBag.Cost </font>秒,共搜索到： <font color="red">@pageModel.Total </font>条记录</b>
+    </div>
+
+    @*<div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <tbody>
+                @foreach (SearchRet r in ViewBag.sret)
+                {
+                    <tr>
+                        <td>
+                            <span>@Html.Raw(r["Id"])</span><br />
+                            <span>@Html.Raw(r["DD"])</span>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>*@
+
+    <div class="panel-footer">
+
+        @Html.Pager("p", pageModel.CurrentPage, pageModel.PageSize, pageModel.Total, PageMode.Numeric)
+    </div>
+
+}
+

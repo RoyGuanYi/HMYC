@@ -1,0 +1,295 @@
+﻿@using Charm.Common
+@using Charm.Common.Models
+@using Charm.Common.Models.ApiResponse
+@using Charm.Entity.API.Mst;
+@using Charm.Entity.API.Goods;
+@{
+    ViewBag.Title = "Personal";
+    var user = LoginHelper.Instance.GetLoginUser<UserInfo>();
+}
+
+<style type="text/css">
+    select {
+        font-family: "微软雅黑";
+        margin: 15px;
+        background: rgba(0,0,0,0);
+        width: 180px;
+        height: 25px;
+        font-size: 10px;
+        text-align: center;
+        border: 1px #1a1a1a solid;
+        border-radius: 5px;
+    }
+
+    option {
+        color: black;
+        background: #A6E1EC;
+        line-height: 20px;
+    }
+
+    select:focus {
+        border: 2px #ddd solid;
+        box-shadow: 0 0 15px 1px #DDDDDD;
+    }
+
+    option:hover {
+        background: #EBCCD1;
+    }
+
+
+
+
+    label {
+        display: inline;
+    }
+</style>
+
+<!-- Swiper -->
+<div class="swiper-container" style="display: inline-table;">
+    <div class="swiper-wrapper">
+        <div class="cnt">
+            <div class="left">
+                <ul class="newleftmenu">
+                    <li class="personCenterItm selected">
+                        <span class="pcticon"></span>
+                        <a class="fc03 noul" href="@Url.Content("../Personal/Index")">个人中心</a>
+                    </li>
+                    <li class="itm selected"><a class="fc03 noul" href="@Url.Content("../Personal/Index")">魅力圈</a></li>
+                    <li class="itm">@Html.ActionLink("品牌设置", "Setting", new { brandId = user.BrandId },new { @class= "fc03 noul" })</li>
+                    <li class="itm"><a class="fc03 noul" href="@Url.Content("../Home/LogOut")">退出</a></li>
+                </ul>
+            </div>
+            <div class="right">
+                <h2>魅力圈 <span class="goOpen"><i class="camera"></i>创建商品</span></h2>
+                <div class="posts zxInfo">
+                    @if (Model != null && Model.Count > 0)
+                    {
+
+                        foreach (GoodsInfo item in Model)
+                        {
+
+                        <div class="post">
+                            <h1 class="post-title"><nobr>@item.GoodsName</nobr></h1>
+                            <div class="image-single">
+                                @if (item.Images != null && item.Images.Count > 0)
+                                {
+
+                                    foreach (var imageUrl in item.Images)
+                                    {
+                                        <img src="@imageUrl.GoodsOriginalImg" />
+
+                                    }
+
+
+                                }
+  
+
+                            </div>
+
+                            <a style="margin-top: 5px; margin-left: 15px;" class="btn btn-primary" href="" onclick="deleteCharm('@item.GoodsId')">删除</a>
+                            <button style="margin-top: 5px; margin-left: 15px;" class="btn btn-primary" href="" onclick="updateCharm('@item.GoodsId')">编辑</button>
+                            @*@if (item.MemberComment != null)
+                            {
+                                <div class="edit"><span class="pull-right">@item.UpdateOn</span>@*<a href="" onclick="deleteCharm('@user.Account','@item.ArticleId')">删除</a></div>
+                                @*<div class="comments-wrapper">
+
+                                    @foreach (var comments in item.MemberComment.Items)
+                                    {
+                                        <div class="comment">
+                                            <span class="name">@comments.NickName: </span><span class="comment-content">@comments.CommentContent</span>
+                                        </div>
+                                    }
+
+                                </div>*@
+                            @*//}*@
+                        </div>
+
+                        }
+
+
+                    }
+
+
+
+
+
+                </div>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+
+</div>
+<!--新建编辑商品页面-->
+<div class="mark hide"></div>
+<div class="mark_info hide">
+    <div class="top_div">
+        <div class='cancel'>取消</div>
+        <div class='send'>发送</div>
+    </div>
+    <div id="goodInfoForm">
+    </div>
+  
+    <!--dom结构部分-->
+    @*<div id="uploader-demo">
+        <!--用来存放item-->
+        <div id="fileList" class="uploader-list"></div>
+        <div id="filePicker">选择图片</div>
+    </div>*@
+</div>
+
+
+
+
+
+
+@section CustomJS
+{
+    @*<script type="text/javascript" src="~/js/webuploader.html5only.min.js"></script>*@
+    <script type="text/javascript" src="~/js/webuploader.js"></script>
+    <script type="text/javascript" src="~/js/diyUpload.js"></script>
+    <script type="text/javascript">
+        if (isWindow == -1) {//移动端砍掉该砍掉的
+            $(".cnt,.zxInfo .post").css("width", "100%");
+            $(".cnt").css("margin", "80px auto 0 auto");
+            $(".cnt .left").remove();
+            $(".cnt .right").css("margin-left", "0px");
+            $(".J_title").remove();
+            $(".cnt .right h2").addClass("leftToRight");
+        }
+        //发帖
+        $(".right").on("click", ".goOpen", function () {
+            if (isWindow == -1) {//移动端直接跳转到发帖页面
+                location.href = "/Personal/MSend";
+                return;
+            }
+            $.get("/Personal/CreateCharm", function (result) {
+                $("#goodInfoForm").html(result);
+                $(".mark,.mark_info").removeClass("hide");
+            });
+          
+         
+            /*
+		* 服务器地址,成功返回,失败返回参数格式依照jquery.ajax习惯;
+		* 其他参数同WebUploader
+		*/
+          
+        });
+
+
+        //取消事件
+        $(".mark_info").on("click",".cancel",function(){
+            $(".mark,.mark_info").addClass("hide");
+        });
+     
+
+
+        function deleteCharm(goodsId) {
+            $.post("/Personal/DeleteGoods", { goodsId: goodsId }, function (result) {
+
+            });
+
+        }
+        function updateCharm(goodsId) {
+           
+            $.get("/Personal/CreateCharm", { goodsId: goodsId }, function (result) {
+                $("#goodInfoForm").html(result);
+                $(".mark,.mark_info").removeClass("hide");
+            });
+           
+        }
+
+       
+
+    </script>
+
+  @*  <script type="text/javascript">
+        // 初始化Web Uploader
+        var uploader = WebUploader.create({
+
+            // 选完文件后，是否自动上传。
+            auto: true,
+
+            // swf文件路径
+
+            // 文件接收服务端。
+            server: '/Charm/Upload',
+
+            // 选择文件的按钮。可选。
+            // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+            pick: '#filePicker',
+
+            // 只允许选择图片文件。
+            accept: {
+                title: 'Images',
+                extensions: 'gif,jpg,jpeg,bmp,png',
+                mimeTypes: 'image/*'
+            }
+        });
+
+        // 当有文件添加进来的时候
+        uploader.on('fileQueued', function (file) {
+            var $li = $(
+                    '<div id="' + file.id + '" class="file-item thumbnail">' +
+                        '<img>' +
+                        '<div class="info">' + file.name + '</div>' +
+                    '</div>'
+                    ),
+                $img = $li.find('img');
+
+
+            // $list为容器jQuery实例
+            $('#fileList').append($li);
+
+            // 创建缩略图
+            // 如果为非图片文件，可以不用调用此方法。
+            // thumbnailWidth x thumbnailHeight 为 100 x 100
+            uploader.makeThumb(file, function (error, src) {
+                if (error) {
+                    $img.replaceWith('<span>不能预览</span>');
+                    return;
+                }
+
+                $img.attr('src', src);
+            }, 90, 90);
+        });
+
+        // 文件上传过程中创建进度条实时显示。
+        uploader.on('uploadProgress', function (file, percentage) {
+            var $li = $('#' + file.id),
+                $percent = $li.find('.progress span');
+
+            // 避免重复创建
+            if (!$percent.length) {
+                $percent = $('<p class="progress"><span></span></p>')
+                        .appendTo($li)
+                        .find('span');
+            }
+
+            $percent.css('width', percentage * 100 + '%');
+        });
+
+        // 文件上传成功，给item添加成功class, 用样式标记上传成功。
+        uploader.on('uploadSuccess', function (file) {
+            $('#' + file.id).addClass('upload-state-done');
+        });
+
+        // 文件上传失败，显示上传出错。
+        uploader.on('uploadError', function (file) {
+            var $li = $('#' + file.id),
+                $error = $li.find('div.error');
+
+            // 避免重复创建
+            if (!$error.length) {
+                $error = $('<div class="error"></div>').appendTo($li);
+            }
+
+            $error.text('上传失败');
+        });
+
+        // 完成上传完了，成功或者失败，先删除进度条。
+        uploader.on('uploadComplete', function (file) {
+            $('#' + file.id).find('.progress').remove();
+        });
+    </script>*@
+}

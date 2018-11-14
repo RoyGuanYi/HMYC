@@ -1,0 +1,96 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+
+<!-- Swiper -->
+<img class="about-banner wow fadeInDown animated" style="visibility: visible;" src="~/img/about_bg.jpg">
+<div class="container">
+	<div class="wow fadeInUp animated" style="visibility: visible;">
+		<h1 class="about-title text-center">关于华恒</h1>
+        <p class="about-desc">
+            华恒标识科技有限公司推出的一款电商App产品，我们立志将产品和服务打造成有特色有口碑的综合服务平台，围绕着有效、有爱和有趣的产品理念，为用户提供最实惠，质量最有保证的产品。
+        </p>
+	</div>
+
+	<div class="contact-us wow fadeInUp">
+		<h1 class="contact-us-title text-center">联系我们</h1>
+		<div>
+			<div class="row">
+				<div id="map" style="width:100%;height:360px;"/>
+			</div>
+
+     	</div>
+	</div>
+	<div class="join-us">
+		<h1 class="contact-us-title text-center wow fadeInUp">加入我们</h1>
+		<p class="contact-us-desc wow fadeInUp"> 在这里有着如90后脑洞大开的80后CEO，对行业发展独具的视野以及雷厉风行的风格总会让团队眼前一亮，前进路上的风风雨雨在他的带领下总能迎刃而解。</p>
+		<p class="contact-us-desc wow fadeInUp"> 在这里有一群逗比的、热情的、有梦想的攻城狮和设计狮，他们热爱运动、热爱分享，他们与“呆板”、“木楞”没有一点联系！加入我们吧，你会发现每天都欢声笑语！</p>
+		<p class="contact-us-desc wow fadeInUp"> 在这里还有一群活泼的运营喵和市场喵，他们思维活泼、想象力丰富，总会有出人意料的想法并深入的执行！</p>
+		<p class="contact-us-desc wow fadeInUp">如果你是一个不安于现状的人，如果你是一个执行力强的人，那么，加入我们，让我们一起成长，一起变得伟大！</p>
+	</div>
+</div>
+
+@section CustomJS{
+    
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=AO3qZVzYdnAEG2hC1hy5Ob0irEIoq9pr"></script>
+    
+   <script type="text/javascript">
+       //创建和初始化地图函数：
+       function initMap() {
+           createMap();//创建地图
+           setMapEvent();//设置地图事件
+           addMapControl();//向地图添加控件
+           addMapOverlay();//向地图添加覆盖物
+       }
+       function createMap() {
+           map = new BMap.Map("map");
+           map.centerAndZoom(new BMap.Point(120.661555, 31.300822), 15);
+       }
+       function setMapEvent() {
+           map.enableScrollWheelZoom();
+           map.enableKeyboard();
+           map.enableDragging();
+           map.enableDoubleClickZoom()
+       }
+       function addClickHandler(target, window) {
+           target.addEventListener("click", function () {
+               target.openInfoWindow(window);
+           });
+       }
+       function addMapOverlay() {
+           var markers = [
+             { content: "charm健身", title: "", imageOffset: { width: -46, height: 3 }, position: { lat: 31.304216, lng: 120.672694 } }
+           ];
+           for (var index = 0; index < markers.length; index++) {
+               var point = new BMap.Point(markers[index].position.lng, markers[index].position.lat);
+               var marker = new BMap.Marker(point, {
+                   icon: new BMap.Icon("http://api.map.baidu.com/lbsapi/createmap/images/icon.png", new BMap.Size(20, 25), {
+                       imageOffset: new BMap.Size(markers[index].imageOffset.width, markers[index].imageOffset.height)
+                   })
+               });
+               var label = new BMap.Label(markers[index].title, { offset: new BMap.Size(25, 5) });
+               var opts = {
+                   width: 200,
+                   title: markers[index].title,
+                   enableMessage: false
+               };
+               var infoWindow = new BMap.InfoWindow(markers[index].content, opts);
+               marker.setLabel(label);
+               addClickHandler(marker, infoWindow);
+               map.addOverlay(marker);
+           };
+       }
+       //向地图添加控件
+       function addMapControl() {
+           var scaleControl = new BMap.ScaleControl({ anchor: BMAP_ANCHOR_BOTTOM_LEFT });
+           scaleControl.setUnit(BMAP_UNIT_IMPERIAL);
+           map.addControl(scaleControl);
+           var navControl = new BMap.NavigationControl({ anchor: BMAP_ANCHOR_TOP_LEFT, type: BMAP_NAVIGATION_CONTROL_LARGE });
+           map.addControl(navControl);
+           var overviewControl = new BMap.OverviewMapControl({ anchor: BMAP_ANCHOR_BOTTOM_RIGHT, isOpen: true });
+           map.addControl(overviewControl);
+       }
+       var map;
+       initMap();
+  </script>
+    }

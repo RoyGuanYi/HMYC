@@ -1,0 +1,71 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using Charm.MvcExt.Base
+@using Charm.MvcExt.Extisions
+
+@model List<CharmMananger.Models.Business.CharmBusinessBrandDTO>
+
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">商家品牌查询</h3>
+    </div>
+
+    <div class="panel-body">
+        @Html.AuthedLink("<i class=\"fa fa-plus\"></i>&nbsp;新增", "Create", "Brand", "btn green btn-sm j-modal")
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>品牌名称</th>
+                    <th>品牌网址</th>
+                    <th>是否显示</th>
+                    <th>是否热门商家</th>
+                    <th>商家编号</th>
+                    <th>最后更新</th>
+                    <th>最后更新时间</th>
+                    <th>商家联系方式</th>
+                    <th>商家账号</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var m in Model)
+                {
+                <tr>
+                    <td>@m.Brand_Name</td>
+                    <td>@m.Site_Url</td>
+                    <td>@m.Is_Show.GetText()</td>
+                    <td>@m.Is_Hot.GetText()</td>
+                    <td>@m.Brand_Code</td>
+                    <td>@m.Modify_By</td>
+                    <td>@m.Modify_Time</td>
+                    <td>@m.Brand_Phone</td>
+                    <td>@m.UserAccount</td>
+                    <td>
+                        @Html.AuthedLink("<i class=\"fa fa-plus\"></i>&nbsp;查看", "Details", "Brand", "btn btn-sm link j-modal", null, new { brandId = m.Brand_Id })
+                        @Html.AuthedLink("修改", "Edit", "Brand", "btn btn-sm link j-modal", null, new { brandId = m.Brand_Id })
+                        @Html.AuthedLink("删除", "Delete", "Brand", "", new { onclick = "return confirm('确认删除吗？')" }, new { brandId = m.Brand_Id })
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="panel-footer">
+
+        @{
+            var pageModel = (PageModel)ViewBag.PM;
+        }
+
+        @Html.Pager("page", pageModel.CurrentPage, pageModel.PageSize, pageModel.Total, PageMode.Numeric)
+
+    </div>
+</div>
+

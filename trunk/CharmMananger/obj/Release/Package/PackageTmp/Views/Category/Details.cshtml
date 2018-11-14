@@ -1,0 +1,78 @@
+﻿
+
+
+
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+
+@model CharmMananger.Models.Business.CharmMstCategoryDTO
+
+<div class="container">
+    <div class="form form-horizontal">
+
+
+        @Html.HiddenFor(d => d.Category_Id)		 
+
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>分类名称</label>
+            <div class="col-xs-5 control-label">
+                @Model.Category_Name
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>关键字</label>
+            <div class="col-xs-5 control-label">
+                @Model.Keywords
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>分类备注</label>
+            <div class="col-xs-5 control-label">
+                @Model.Category_Desc
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>父级ID</label>
+            <div class="col-xs-5 control-label">
+                @Model.Parent_id
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>排序</label>
+            <div class="col-xs-5 control-label">
+                @Model.Sort_Order
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label"><i class="fa fa-asterisk required"></i>是否显示</label>
+            <div class="col-xs-5 control-label">
+                @Model.Is_Show
+            </div>
+        </div>
+
+
+ <a href="/User/Home" class="btn default J_CloseModal"><i class="fa fa-undo"></i>&nbsp;返  回</a>
+    </div>
+</div>

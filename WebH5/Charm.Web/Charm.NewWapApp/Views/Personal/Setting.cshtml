@@ -1,0 +1,244 @@
+﻿@{
+    ViewBag.Title = "Personal";
+    var user = LoginHelper.Instance.GetLoginUser<UserInfo>();
+}
+@model Charm.NewWapApp.Models.BrandInfoModel
+@using Charm.Common
+@using Charm.Common.Models
+@section CustomCSS
+{
+    @*<link href="~/css/diyUpload.css" type="text/css" rel="stylesheet" />*@
+    @*<link href="~/css/webuploader.css" rel="stylesheet" />*@
+
+
+
+}
+<!-- Swiper -->
+<div class="swiper-container" style="display: inline-table;">
+    <div class="swiper-wrapper">
+	    <div class="cnt">
+			<div class="left">
+@if (!string.IsNullOrEmpty(Model.BrandId))
+{
+				<ul class="newleftmenu">
+                 
+                        <li class="personCenterItm selected">
+                            <span class="pcticon"></span>
+                            <a class="fc03 noul" href="@Url.Content("../Personal/Index")">个人中心</a>
+                        </li>
+                        <li class="itm"><a class="fc03 noul" href="@Url.Content("../Personal/Index")">魅力圈</a></li>
+                        <li class="itm selected">@Html.ActionLink("品牌设置", "Setting", new { brandId = Model.BrandId }, new { @class = "fc03 noul" })</li>
+                        <li class="itm"><a class="fc03 noul" href="@Url.Content("../Home/LogOut")">退出</a></li>
+                   
+		      </ul>
+}
+			</div>
+			<div class="right">
+				<h2>品牌设置</h2>
+                @using (Html.BeginForm("Setting", "Personal", FormMethod.Post, new { id= "uploadForm", @class = "form-horizontal", enctype = "multipart/form-data" }))
+                {
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">品牌名称</label>
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(m => m.BrandName, new { @class = "form-control", maxlength = "60" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">品牌电话</label>
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(m => m.BrandPhone, new { @class = "form-control", maxlength = "20" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">品牌电话</label>
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(m => m.BrandPhone, new { @class = "form-control", maxlength = "20" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">品牌账号</label>
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(m => m.UserAccount, new { @class = "form-control", maxlength = "20" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">品牌账户新密码</label>
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(m => m.NewUserPassword, new { @class = "form-control", maxlength = "50" })
+                                </div>
+                            </div>
+                        </div>
+                      
+                      
+                      </div>
+
+                      <div class="row">
+                          <div class="col-md-12">
+                              <div class="form-group">
+                                  <label class="col-md-3 control-label">品牌描述</label>
+                                  <div class="col-md-9">
+                                      @Html.TextAreaFor(m => m.BrandDesc, new { @class = "form-control", maxlength = "200", rows = 4, cols = 20 })
+                                  </div>
+                              </div>
+                          </div>
+                       </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">品牌Logo</label>  
+                                   @Html.Partial("_UploadImage")
+                            </div>
+                        </div>
+                           
+                    </div>
+                    @Html.HiddenFor(m => m.BrandLogo)
+                    <div class="row">
+                        <div class="col-md-offset-5 col-md-7">
+                            <div id="save" class="submit">保存</div>
+                            @Html.HiddenFor(m => m.BrandId)
+                        </div>
+                    </div>
+                        }
+
+                    </div>
+			<div style="clear:both;"></div>
+	    </div>
+    </div>
+    
+</div>
+
+
+@section CustomJS{
+        <script type="text/javascript">
+            if (isWindow == -1) {//移动端砍掉该砍掉的
+                $(".cnt .right h2").addClass("hide");
+                $(".cnt,.zxInfo .post").css("width", "100%");
+                $(".cnt").css("margin", "60px auto 0 auto");
+                $(".cnt .left").remove();
+                $(".cnt .right").css("margin-left", "0px");
+                $(".swiper-container").css("height", "70%");
+            }
+
+            //upload Image  start
+            $(function () {
+                //1.初始化input控件
+                var oFileInput = new FileInput();
+                oFileInput.Init("txt_file", "/Charm/Upload");
+
+                //2.注册导入按钮的事件
+                $("#btn_importImage").click(function () {
+                    $("#myImportImage").modal();
+                });
+            });
+            
+            //图片集合
+            var path = [];
+            var config = [];
+            if ($("#BrandLogo").val() != "") {
+                // path.push({ Url: $("#BrandLogo").val(), FileName: $("#BrandLogo").val().substring($("#BrandLogo").val().lastIndexOf('/')+1) });
+                path.push($("#BrandLogo").val());
+                config.push({ key: $("#BrandLogo").val().substring($("#BrandLogo").val().lastIndexOf('/') + 1) })
+            }
+            
+            //初始化fileinput
+            var FileInput = function () {
+                var oFile = new Object();
+
+                //初始化fileinput控件（第一次初始化）
+                oFile.Init = function (ctrlName, uploadUrl) {
+                    var control = $('#' + ctrlName);
+
+                    //初始化上传控件的样式
+                    control.fileinput({
+                        language: 'zh', //设置语言
+                        uploadUrl: uploadUrl, //上传的地址
+                        showRemove:false,
+                        allowedFileExtensions: ['jpg', 'gif', 'png','gif','jpeg','bmp'],//接收的文件后缀
+                        showUpload: true, //是否显示上传按钮
+                        showCaption: false,//是否显示标题
+                        browseClass: "btn btn-primary", //按钮样式
+                        //dropZoneEnabled: false,//是否显示拖拽区域
+                        //minImageWidth: 50, //图片的最小宽度
+                        //minImageHeight: 50,//图片的最小高度
+                        //maxImageWidth: 1000,//图片的最大宽度
+                        //maxImageHeight: 1000,//图片的最大高度
+                        //maxFileSize: 0,//单位为kb，如果为0表示不限制文件大小
+                        //minFileCount: 0,
+                        maxFileCount: 1,
+                        enctype: 'multipart/form-data',
+                        validateInitialCount: true,
+                        previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+                        msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
+                        initialPreviewAsData: true,
+                        initialPreviewFileType: 'image',
+                        initialPreview: path,
+                        initialPreviewConfig: config,
+                        deleteUrl: "/Charm/DeleteImage",
+                        //layoutTemplates: {
+                        //   //actionDelete:'' , //去除上传预览的缩略图中的删除图标
+                        //    //actionUpload: '',//去除上传预览缩略图中的上传图片；
+                        //    //actionZoom: ''   //去除上传预览缩略图中的查看详情预览的缩略图标。
+                        //},
+                enctype: 'multipart/form-data',// 上传图片的设置
+
+                    });
+
+                    //导入文件上传完成之后的事件
+                    $("#txt_file").on("fileuploaded", function (event, data, previewId, index) {
+                        $("#myImportImage").modal("hide");
+                        if (data == undefined || data.response == undefined) {
+                            ShowErrorInfo('上传图片失败');
+                            return;
+                        }
+                        else if (data.response.Success == true) {
+                            $("#BrandLogo").val(data.response.Url);
+                            path = [];
+                            config = [];
+                            if ($("#BrandLogo").val() != "") {
+                                // path.push({ Url: $("#BrandLogo").val(), FileName: $("#BrandLogo").val().substring($("#BrandLogo").val().lastIndexOf('/')+1) });
+                                path.push($("#BrandLogo").val());
+                                config.push({ key: $("#BrandLogo").val().substring($("#BrandLogo").val().lastIndexOf('/') + 1) })
+                            }
+                            ShowSuccessInfo('上传图片成功');
+                        }
+                        else {
+                            ShowErrorInfo('上传图片失败');
+                            return;
+                        }
+                        
+
+                    });
+
+
+                    //删除文件后事件
+                    $("#txt_file").on("filedeleted", function (event, key, jqXHR, data) {
+                        alert(data);
+                    });
+                }
+                return oFile;
+            };
+
+
+          
+
+           
+
+
+
+          
+            //upload Image  end
+            
+            $("#save").click(function () {
+                $("#uploadForm").submit();
+            });          
+        </script>
+                       
+                       
+               }

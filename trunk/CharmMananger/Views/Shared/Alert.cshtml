@@ -1,0 +1,46 @@
+﻿    <script src="/assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>
+
+<script type="text/javascript">
+
+    $(function () {
+        toastr.options = {
+            "closeButton": true,
+            "positionClass": "toast-top-center",
+            "showDuration": "1000",
+            "timeOut": "10000",
+            "extendedTimeOut": "1000",
+        }
+
+        var smsg = '@TempData["sjs"]';
+        var emsg = '@TempData["ejs"]';
+
+        //成功提示
+        if (smsg != '') {
+            if (window.parent && window.parent != window) {
+                window.parent.toastr.success(smsg);
+            }
+            else {
+                toastr.success(smsg);
+            }
+        }
+
+        //失败提示
+        if (emsg != '') {
+            if (window.parent && window.parent != window) {
+                window.parent.toastr.error(emsg);
+            }
+            else {
+                toastr.error(emsg);
+            }
+        }
+    });
+
+    function ShowErrorInfo(emsg) {
+        if (window.parent && window.parent != window) {
+            window.parent.toastr.error(emsg);
+        }
+        else {
+            toastr.error(emsg);
+        }
+    }
+</script>

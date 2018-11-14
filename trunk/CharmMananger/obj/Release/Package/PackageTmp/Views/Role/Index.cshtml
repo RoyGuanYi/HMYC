@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using Charm.MvcExt.Base
+@using Charm.MvcExt.Extisions
+@model List<CharmMananger.Models.Role.CharmCommonRoleInfoDTO>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">角色管理</h3>
+    </div>
+
+    <div class="panel-body">
+        @Html.AuthedLink("<i class=\"fa fa-plus\"></i>&nbsp;新增", "Create", "Role", "btn green btn-sm j-modal")
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>角色名称</th>
+                    <th>角色代码</th>
+                    <th>启用</th>
+                    <th>系统默认角色</th>
+                    <th>创建时间</th>
+                    <th>创建人账户</th>
+                    <th>修改日期</th>
+                    <th>修改人账号</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var m in Model)
+                {
+                    <tr>
+                        <td>@m.RoleName</td>
+                        <td>@m.RoleCode</td>
+                        <td>@m.IsEnable.GetText()</td>
+                        <td>@m.IsSysDefault.GetText()</td>
+                        <td>@m.CreateDate.GetText()</td>
+                        <td>@m.CreateBy</td>
+                        <td>@m.ModifyDate.GetText()</td>
+                        <td>@m.ModifyBy</td>
+                        <td>
+                            @Html.AuthedLink("<i class='fa fa-edit'></i>&nbsp;修改", "Edit", "Role", "btn btn-xs link j-modal", null, new { id = m.RoleId })
+                            @Html.AuthedLink("<i class='fa fa-key'></i>&nbsp;角色授权", "Authorization", "Role", "btn btn-xs link", new { target = "_blank" }, new { roleId = m.RoleId })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="panel-footer">
+
+        @{
+            var pageModel = (PageModel)ViewBag.PM;
+        }
+
+        @Html.Pager("page", pageModel.CurrentPage, pageModel.PageSize, pageModel.Total, PageMode.Numeric)
+
+    </div>
+</div>
+
